@@ -2,42 +2,34 @@ import java.util.*;
 
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-
         Arrays.sort(nums);
-        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
 
-        for (int i = 0; i < nums.length - 2; i++) {
+        for (int i = 0; i < n - 2; i++) {
+            // sorted array: if smallest element > 0, no triplet can sum to 0
+            if (nums[i] > 0) break;
 
-            // Skip duplicate first elements
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue;
-            }
+            // skip duplicate values for i
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
 
-            int left = i + 1;
-            int right = nums.length - 1;
+            int left = i + 1, right = n - 1;
+            int target = -nums[i];
 
             while (left < right) {
+                int sum = nums[left] + nums[right];
 
-                int sum = nums[i] + nums[left] + nums[right];
-
-                if (sum == 0) {
-
-                    ans.add(Arrays.asList(nums[i], nums[left], nums[right]));
-
+                if (sum == target) {
+                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
                     left++;
                     right--;
 
-                    // Skip duplicate left values
-                    while (left < right && nums[left] == nums[left - 1]) {
-                        left++;
-                    }
+                    // skip duplicates for left
+                    while (left < right && nums[left] == nums[left - 1]) left++;
+                    // skip duplicates for right
+                    while (left < right && nums[right] == nums[right + 1]) right--;
 
-                    // Skip duplicate right values
-                    while (left < right && nums[right] == nums[right + 1]) {
-                        right--;
-                    }
-
-                } else if (sum < 0) {
+                } else if (sum < target) {
                     left++;
                 } else {
                     right--;
@@ -45,6 +37,6 @@ class Solution {
             }
         }
 
-        return ans;
+        return res;
     }
 }
