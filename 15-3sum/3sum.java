@@ -1,3 +1,61 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) 
+    {
+        Arrays.sort(nums);
+        int n=nums.length;
+
+        List<List<Integer>> results=new ArrayList<>();
+
+        for(int i=0;i<n-2;i++)
+        {
+            if(nums[i]>0)
+            {
+                break;
+            }
+            if(i>0 && nums[i]==nums[i-1])
+            {
+                continue;
+            }
+
+            int start=i+1;
+            int end =n-1;
+
+            int target =-nums[i];
+
+            while(start<end)
+            {
+                int sum=nums[start]+nums[end];
+
+                if(target==sum)
+                {
+                    results.add(Arrays.asList(nums[i],nums[start],nums[end]));
+                    start++;
+                    end--;
+
+                    while(start<end && nums[start]==nums[start-1])
+                    {
+                        start++;
+                    }
+                    while(start<end && nums[end]==nums[end+1])
+                    {
+                        end --;
+                    }
+                }
+                else if(sum<target)
+                {
+                    start++;
+                }
+                else
+                {
+                    end--;
+                }
+            }
+           
+        }
+         return results;
+    }
+}
+/*  
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
             Arrays.sort(nums);
@@ -62,49 +120,5 @@
     }
 
 
-/*
 
-import java.util.*;
-
-class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums);
-        int n = nums.length;
-        List<List<Integer>> res = new ArrayList<>();
-
-        for (int i = 0; i < n - 2; i++) {
-            // sorted array: if smallest element > 0, no triplet can sum to 0
-            if (nums[i] > 0) break;
-
-            // skip duplicate values for i
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
-
-            int left = i + 1, right = n - 1;
-            int target = -nums[i];
-
-            while (left < right) {
-                int sum = nums[left] + nums[right];
-
-                if (sum == target) {
-                    res.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    left++;
-                    right--;
-
-                    // skip duplicates for left
-                    while (left < right && nums[left] == nums[left - 1]) left++;
-                    // skip duplicates for right
-                    while (left < right && nums[right] == nums[right + 1]) right--;
-
-                } else if (sum < target) {
-                    left++;
-                } else {
-                    right--;
-                }
-            }
-        }
-
-        return res;
-    }
-}
-
-*/ 
+*/
