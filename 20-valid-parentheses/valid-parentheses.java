@@ -1,36 +1,40 @@
 class Solution {
-    public boolean isValid(String s) 
-    {
-        Stack<Character>stackk=new Stack<>();
-        int i=0;
+    public boolean isValid(String s) {
 
+        char[] stack = new char[s.length()];
+        int top = -1;
 
-        while(i<s.length())
-        {
-            if(stackk.isEmpty() || s.charAt(i)=='(' ||s.charAt(i)=='['||s.charAt(i)=='{')
-            {
-                stackk.push(s.charAt(i));
+        for (int i = 0; i < s.length(); i++) {
+
+            char current = s.charAt(i);
+
+            // Opening bracket
+            if (current == '(' || current == '[' || current == '{') {
+                stack[++top] = current;
             }
-            else
-            {
-                if(s.charAt(i)==')' && stackk.peek()=='('  || 
-                    s.charAt(i)==']' && stackk.peek()=='[' ||
-                    s.charAt(i)=='}' && stackk.peek()=='{')
-                {
-                    stackk.pop();
+
+            // Closing bracket
+            else {
+
+                // Stack empty → matching opening bracket नाही
+                if (top == -1) {
+                    return false;
                 }
-                else
-                {
+
+                char peek = stack[top];
+
+                if ((current == ')' && peek == '(') ||
+                    (current == ']' && peek == '[') ||
+                    (current == '}' && peek == '{')) {
+
+                    top--;       // pop
+                }
+                else {
                     return false;
                 }
             }
-            i++;
-        } 
-        if(stackk.isEmpty())
-        {
-            return true;
-        }   
-        
-        return false;
+        }
+
+        return top == -1;
     }
 }
