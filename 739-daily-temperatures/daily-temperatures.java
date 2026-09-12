@@ -1,3 +1,4 @@
+//solve again >>>>>>>
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) 
     {
@@ -7,7 +8,7 @@ class Solution {
        
         Stack<Integer>stackk=new Stack<>();    
 
-        res[n-1]=0;
+        // res[n-1]=0;
 
         stackk.push(n-1);
 
