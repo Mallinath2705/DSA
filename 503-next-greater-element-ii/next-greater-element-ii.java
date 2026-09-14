@@ -1,4 +1,4 @@
-class Solution {
+class Solution {  // Dok ch chudla he question krtana 
     public int[] nextGreaterElements(int[] nums) {
 
         int n = nums.length;
